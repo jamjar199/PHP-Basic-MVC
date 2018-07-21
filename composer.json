@@ -1,0 +1,7 @@
+{
+    "name": "james/learning",
+    "description": "learning php stuffz",
+    "type": "project",
+    "license": "MIT",
+    "require": {}
+}
