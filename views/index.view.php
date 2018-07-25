@@ -1,15 +1,9 @@
 <?php require('partials/header.php'); ?>
 
-<h1>My Tasks</h1>
-
-<?php foreach ($data as $task) : ?>
-	<li>
-		<?php if ($task->completed) : ?>
-			<strike><?= $task->title; ?></strike>
-		<?php else : ?>
-			<?= $task->title; ?>
-		<?php endif; ?>
-	</li>
-<?php endforeach; ?>
+<h1>Submit yor name</h1>
+<form method="post" action="/names">
+	<input name="name">
+	<button type="Submit">Submit</button>
+</form>
 
 <?php require('partials/footer.php'); ?>
