@@ -3,5 +3,9 @@
     "description": "learning php stuffz",
     "type": "project",
     "license": "MIT",
-    "require": {}
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    }
 }
