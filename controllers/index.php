@@ -1,5 +1,9 @@
 <?php
 
-$data = $app['database']->selectAll('todo');
+use \models\Task;
+
+$task = new Task;
+
+$data = $task->getTable();
 
 require 'views/index.view.php';

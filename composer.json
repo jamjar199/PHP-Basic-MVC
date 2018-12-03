@@ -1,11 +1,14 @@
 {
-    "name": "james/learning",
-    "description": "learning php stuffz",
+    "name": "PHP Basic MCV",
+    "description": "Basic PHP MCV framework for portfolio projects.",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "classmap": [
             "./"
         ]
+    },
+    "require": {
+        "ext-PDO": "^7.2"
     }
 }

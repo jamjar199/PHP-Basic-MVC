@@ -43,13 +43,13 @@ class QueryBuilder
 			return false;
 		}
 
-		//converts array into comma seperated string
+		//converts array into comma separated string
 		$fields = implode (", ", $fieldsArray);
 
-		//creates a string of comma seperated field names that the values get binded to
+		//creates a string of comma separated field names that the values get binded to
 		$valueBind = implode(", :", $fieldsArray);
 
-		//adds : to begining of values to be binded 
+		//adds : to beginning of values to be binded 
 		$valueBind = ':' . $valueBind;
 
 		$stmt = $this->pdo->prepare(
