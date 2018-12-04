@@ -9,6 +9,7 @@
         ]
     },
     "require": {
-        "ext-PDO": "^7.2"
+        "ext-PDO": "^7.2",
+        "delight-im/auth": "^8.1"
     }
 }
