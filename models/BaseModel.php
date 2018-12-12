@@ -15,7 +15,7 @@ class BaseModel
 
     public function getTable(){
         $table = explode('\\', $this->table);
-        return $table[1];
+        return preg_replace('/Model$/', '',  $table[1]);
     }
 
 }

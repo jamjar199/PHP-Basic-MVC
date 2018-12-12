@@ -11,6 +11,8 @@ class Router
 		'POST' => []
 	];
 
+	public $method;
+
 	public static function load($file){
 		$router = new static;
 		require $file;
@@ -26,13 +28,19 @@ class Router
 		throw new Exception("No route defined for this uri");
 	}
 
-	function get($uri, $controller)
+	function get($uri, $controller, $method = '')
 	{
 		$this->routes['GET'][$uri] = $controller;
+		$this->method = $method;
 	}
 
-	function post($uri, $controller)
+	function post($uri, $controller, $method = '')
 	{
-		$this->routes['POST'][$uri] = $controller;
-	}
+	    $this->routes['POST'][$uri] = $controller;
+        $this->method = $method;
+    }
+
+    function getMethod(){
+	    return $this->method;
+    }
 }
