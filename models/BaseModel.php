@@ -8,9 +8,11 @@ class BaseModel
      * The table associated with the model.
      */
     protected $table;
+    protected $db;
 
     public function __construct(){
         $this->table = get_class($this);
+        $this->db = new \QueryBuilder(\Database::connect());
     }
 
     public function getTable(){

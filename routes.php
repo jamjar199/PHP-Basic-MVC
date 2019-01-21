@@ -1,3 +1,3 @@
 <?php
 
-$router->get('', 'TaskController', 'index');
+$router->get('', 'TaskController@index');

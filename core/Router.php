@@ -28,16 +28,14 @@ class Router
 		throw new Exception("No route defined for this uri");
 	}
 
-	function get($uri, $controller, $method = '')
+	function get($uri, $controller)
 	{
 		$this->routes['GET'][$uri] = $controller;
-		$this->method = $method;
 	}
 
-	function post($uri, $controller, $method = '')
+	function post($uri, $controller)
 	{
 	    $this->routes['POST'][$uri] = $controller;
-        $this->method = $method;
     }
 
     function getMethod(){

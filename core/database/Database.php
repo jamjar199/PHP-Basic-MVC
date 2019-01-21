@@ -2,7 +2,10 @@
 
 class Database{
 	
-	public static function connect($config){
+	public static function connect(){
+
+	    $config = require 'config.php';
+	    $config = $config['database'];
 
 		try {
 			return new PDO(
@@ -12,7 +15,7 @@ class Database{
 				$config['options']
 			);
 		} catch (PDOException $e) {
-			die("Database failed: " . $e->getMessage());
+		    throw new PDOException($e);
 		}
 
 	}
