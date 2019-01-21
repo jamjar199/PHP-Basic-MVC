@@ -26,7 +26,7 @@ class QueryBuilder
         //if query has a limit it is set
         $query = $this->setLimits($query, $limit);
 
-        return $this->execute($query, true);
+        return $this->executeQuery($query, true);
 
     }
 
@@ -53,12 +53,16 @@ class QueryBuilder
 		//converts array into comma separated string
 		$fields = implode(", ", $fieldsArray);
 
-		//creates a string of comma separated field names that the values get bound to
-		$values = implode(", :", $valuesArray);
+		//creates a string of comma separated field names that the values get bound to (for PDO bindparam)
+		$valuesPlaceholder = implode(", :", $fieldsArray);
+		$valuesPlaceholder = ":" . $valuesPlaceholder;
 
-        return $this->executeQuery("INSERT INTO {$tableName} ({$fields}) VALUES ({$values})");
+		//creates the values array with fields as their keys
+		$valuesArray = array_combine($fieldsArray, $valuesArray);
 
-	}
+        return $this->executeQuery("INSERT INTO {$tableName} ({$fields}) VALUES ({$valuesPlaceholder})", false, $valuesArray);
+
+    }
 
 	public function update($tableName, $fieldsArray, $valuesArray, $where = 1, $limit = false){
 
@@ -67,8 +71,14 @@ class QueryBuilder
 
         //loop through each field and add the field and value to the values string
 	    foreach ($fieldsArray as $key => $field){
-	        $values .= $field . ' = ' . $valuesArray[$key] . ', ';
+	        if ($key != 0){
+	            $values .= ', ';
+            }
+	        $values .= $field . ' = :' . $field;
         }
+
+        //creates the values array with fields as their keys
+        $valuesArray = array_combine($fieldsArray, $valuesArray);
 
 	    //assemble query string
         $query = "UPDATE {$tableName} SET {$values} WHERE {$where}";
@@ -76,7 +86,7 @@ class QueryBuilder
 	    //if query has a limit it is set
         $query = $this->setLimits($query, $limit);
 
-        return $this->executeQuery($query);
+        return $this->executeQuery($query, false, $valuesArray);
     }
 
     public function delete($tableName, $where = 1, $limit = false){
@@ -104,24 +114,17 @@ class QueryBuilder
         return $query;
     }
 
-    private function executeQuery($query, $fetchAll = false){
-
-	    if ($fetchAll == true) {
-
-            //prepares the query into a PDO statement and executes it (bool return)
-            return $this->pdo->prepare($query)->execute();
-        }
+    private function executeQuery($query, $fetchAll = false, $paramArray = []){
 
         //prepares the query into a PDO statement and executes it
         $stmt = $this->pdo->prepare($query);
-	    $response = $stmt->execute();
 
-	    if ($response == true) {
-            //return the data retrieved
-            return $stmt->fetchAll(PDO::FETCH_CLASS);
+	    if ($fetchAll == false) {
+	        return $stmt->execute($paramArray);
         }
 
-	    return false;
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
 
     }
 }

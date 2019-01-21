@@ -18,6 +18,7 @@ $controller = $controller[0];
 //add folder to controller
 $controller = "\controllers\\" . $controller;
 
-$class = new $controller($method);
+//Creates a new controller and calls the required method via the controllers constructor
+new $controller($method);
 
 

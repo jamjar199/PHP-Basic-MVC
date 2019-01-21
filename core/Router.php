@@ -25,7 +25,7 @@ class Router
 			return $this->routes[$requestType][$uri];
 		}
 
-		throw new Exception("No route defined for this uri");
+		die("No route defined for this uri");
 	}
 
 	function get($uri, $controller)

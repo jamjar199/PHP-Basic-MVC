@@ -4,10 +4,8 @@ namespace models;
 
 class BaseModel
 {
-    /**
-     * The table associated with the model.
-     */
-    protected $table;
+
+    protected $table; //The table associated with the model.
     protected $db;
 
     public function __construct(){
